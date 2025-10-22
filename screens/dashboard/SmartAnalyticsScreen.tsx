@@ -128,7 +128,9 @@ export const SmartAnalyticsScreen: React.FC = () => {
             const fullHistory = [
                 { role: 'user', parts: [{ text: `Aqui estão os dados: ${dataContext}` }] },
                 { role: 'model', parts: [{ text: "Ok, entendi. Tenho os dados carregados. O que você gostaria de analisar?" }] },
-                ...newHistory.map(msg => ({ role: msg.role, parts: [{ text: msg.content }] }))
+                ...newHistory
+                    .filter(msg => msg.role !== 'system') // Filter out system messages
+                    .map(msg => ({ role: msg.role, parts: [{ text: msg.content }] }))
             ];
 
             const response = await ai.models.generateContent({
@@ -257,4 +259,3 @@ export const SmartAnalyticsScreen: React.FC = () => {
         </div>
     );
 };
-

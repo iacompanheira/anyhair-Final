@@ -1,6 +1,8 @@
 
 
 
+
+
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, CartesianGrid, LabelList, ComposedChart } from 'recharts';
 import * as api from '../../api';
@@ -246,14 +248,12 @@ const ClientAnalysis: React.FC<{ allAppointments: FullAppointment[], allClients:
         const atRiskClients = allClients
             .filter(c => { const lastVisitTime = new Date(c.lastVisit + 'T00:00:00Z').getTime(); return lastVisitTime >= atRiskCutoffStart.getTime() && lastVisitTime < atRiskCutoffEnd.getTime(); })
             // FIX: Use .getTime() for date subtraction in sort to ensure numeric operation.
-            // FIX: Use .getTime() for date subtraction in sort to ensure numeric operation.
             .sort((a: Client, b: Client) => new Date(a.lastVisit + 'T00:00:00Z').getTime() - new Date(b.lastVisit + 'T00:00:00Z').getTime())
             .map(c => ({ id: c.id, name: c.name, value: Math.floor((NOW.getTime() - new Date(c.lastVisit + 'T00:00:00Z').getTime()) / (1000 * 3600 * 24)) }));
 
         const lostCutoff = new Date(NOW); lostCutoff.setFullYear(lostCutoff.getFullYear() - 1);
         const lostClients = allClients
             .filter(c => new Date(c.lastVisit + 'T00:00:00Z').getTime() < lostCutoff.getTime())
-            // FIX: Use .getTime() for both date objects in subtraction to ensure numeric operation.
             // FIX: Use .getTime() for both date objects in subtraction to ensure numeric operation.
             .sort((a: Client, b: Client) => new Date(a.lastVisit + 'T00:00:00Z').getTime() - new Date(b.lastVisit + 'T00:00:00Z').getTime())
             .map(c => ({ id: c.id, name: c.name, value: Math.floor((NOW.getTime() - new Date(c.lastVisit + 'T00:00:00Z').getTime()) / (1000 * 3600 * 24)) }));
@@ -549,11 +549,11 @@ export const ReportsScreen: React.FC = () => {
                 ticketMedio: p.atendimentos > 0 ? p.faturamento / p.atendimentos : 0,
             }))
             // FIX: Ensure correct numeric subtraction in sort by casting to Number.
-            // FIX: Ensure correct numeric subtraction in sort by casting to Number.
             .sort((a, b) => Number(b.faturamento) - Number(a.faturamento))
             .map((p, index: number) => ({ ...p, index: index + 1 }));
         
-        const mostSoughtMap = completedInPeriod.reduce<Record<string, number>>((acc, a) => { acc[a.professional.name] = (acc[a.professional.name] ?? 0) + 1; return acc; }, {});
+        // FIX: Replaced `??` with `||` to avoid potential type issues with `unknown`.
+        const mostSoughtMap = completedInPeriod.reduce<Record<string, number>>((acc, a) => { acc[a.professional.name] = (acc[a.professional.name] || 0) + 1; return acc; }, {});
         const mostSoughtProfessionalsData = Object.entries(mostSoughtMap)
             .sort((a, b) => b[1] - a[1])
             .map(([name, atendimentos]) => ({name, atendimentos}));
@@ -562,7 +562,8 @@ export const ReportsScreen: React.FC = () => {
         const monthCounts: number[] = Array(12).fill(0);
         allAppointments.filter(a => new Date(a.date).getUTCFullYear() === 2025).forEach(a => { 
             const monthIndex = new Date(a.date).getUTCMonth();
-            monthCounts[monthIndex] = (monthCounts[monthIndex] ?? 0) + 1;
+            // FIX: Use simple increment as monthCounts[monthIndex] is guaranteed to be a number.
+            monthCounts[monthIndex]++;
          });
         const appointmentsByMonthData = ['jan.', 'fev.', 'mar.', 'abr.', 'mai.', 'jun.', 'jul.', 'ago.', 'set.', 'out.', 'nov.', 'dez.'].map((name, index) => ({ name, agendamentos: monthCounts[index] ?? 0 }));
 
