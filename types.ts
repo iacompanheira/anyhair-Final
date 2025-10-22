@@ -112,6 +112,7 @@ export interface Service {
   includesServiceIds?: number[];
   icon?: string;
   isVisibleInCatalog?: boolean;
+  isEssential?: boolean;
 }
 
 export interface SubscriptionPlan {
@@ -233,6 +234,8 @@ export interface LayoutSettings {
 }
 
 export interface StoreBranding {
+    titleText: string;
+    subtitleText: string;
     sectionTitle: FontStyleControl;
     sectionSubtitle: FontStyleControl;
     cardTitle: FontStyleControl;

@@ -13,6 +13,7 @@ export const SERVICES_DATA: Service[] = [
     icon: 'fas fa-cut',
     productCost: 2.50,
     isVisibleInCatalog: true,
+    isEssential: true,
   },
   {
     id: 2,
@@ -25,6 +26,7 @@ export const SERVICES_DATA: Service[] = [
     icon: 'fas fa-stream',
     productCost: 20.00,
     isVisibleInCatalog: true,
+    isEssential: true,
   },
   {
     id: 3,
@@ -37,6 +39,7 @@ export const SERVICES_DATA: Service[] = [
     icon: 'fas fa-paint-brush',
     productCost: 15.00,
     isVisibleInCatalog: true,
+    isEssential: true,
   },
   {
     id: 4,
@@ -50,6 +53,7 @@ export const SERVICES_DATA: Service[] = [
     icon: 'fas fa-hand-sparkles',
     productCost: 3.50,
     isVisibleInCatalog: true,
+    isEssential: true,
   },
   {
     id: 5,
@@ -62,6 +66,7 @@ export const SERVICES_DATA: Service[] = [
     icon: 'fas fa-tint',
     productCost: 8.00,
     isVisibleInCatalog: true,
+    isEssential: false,
   },
   {
     id: 6,
@@ -74,6 +79,7 @@ export const SERVICES_DATA: Service[] = [
     icon: 'fas fa-eye',
     productCost: 1.00,
     isVisibleInCatalog: true,
+    isEssential: false,
   },
   {
     id: 7,
@@ -86,6 +92,7 @@ export const SERVICES_DATA: Service[] = [
     icon: 'fas fa-hand-paper',
     productCost: 1.50,
     isVisibleInCatalog: true,
+    isEssential: false,
   },
   {
     id: 8,
@@ -98,6 +105,7 @@ export const SERVICES_DATA: Service[] = [
     icon: 'fas fa-shoe-prints',
     productCost: 2.00,
     isVisibleInCatalog: true,
+    isEssential: false,
   },
   {
     id: 9,
@@ -110,6 +118,7 @@ export const SERVICES_DATA: Service[] = [
     icon: 'fas fa-wind',
     productCost: 3.00,
     isVisibleInCatalog: true,
+    isEssential: false,
   }
 ];
 
